@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InvoiceHeader index{% endblock %}
+
+{% block body %}
+    <h1>Invoices</h1>
+
+    {{ form_start(searchForm) }}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">From</span>
+            </div>
+            {{ form_widget(searchForm.dateFrom) }}
+            <div class="input-group-prepend">
+                <span class="input-group-text">To</span>
+            </div>
+            {{ form_widget(searchForm.dateTo) }}
+
+            <div class="input-group-prepend">
+                <span class="input-group-text">Status</span>
+            </div>
+            {{ form_widget(searchForm.status) }}
+
+            <div class="input-group-prepend">
+                <span class="input-group-text">Location</span>
+            </div>
+            {{ form_widget(searchForm.location) }}
+
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+            </div>
+            {% if searchQuery %}
+                <div class="input-group-append">
+                    <a href="{{ path('invoice_header_index') }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
+                </div>
+            {% endif %}
+        </div>
+    {{ form_end(searchForm) }}
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Date</th>
+                <th scope="col">Location</th>
+                <th scope="col"># lines</th>
+                <th scope="col">Total</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice_header in invoice_headers %}
+            <tr>
+                <th>{{ invoice_header.id }}</th>
+                <td>{{ invoice_header.date ? invoice_header.date|date('Y-m-d') : '' }}</td>
+                <td>{{ invoice_header.location.name }}</td>
+                <td>{{ invoice_header.invoiceLines|length }}</td>
+                <td>{{ invoice_header.total|format_currency('EUR') }}</td>
+                <td><span class="badge badge-info">{{ invoice_header.status }}</span></td>
+                <td class="text-center">
+                    <a href="{{ path('invoice_header_show', {'id': invoice_header.id}) }}" class="btn btn-sm btn-light"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('invoice_header_edit', {'id': invoice_header.id}) }}" class="btn btn-sm btn-light"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('invoice_header_new') }}" class="float-right btn btn-outline-secondary"><i class="fas fa-plus"></i></a>
+
+    {{ pagerfanta(pager) }}
+
+{% endblock %}

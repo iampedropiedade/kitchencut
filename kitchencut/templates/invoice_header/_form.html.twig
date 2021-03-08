@@ -1,0 +1,73 @@
+{% import _self as formMacros %}
+{% macro invoiceLineRow(invoiceLinesForm) %}
+    <tr>
+        <td>{{ form_row(invoiceLinesForm.description) }}</td>
+        <td>{{ form_row(invoiceLinesForm.value) }}</td>
+        <td class="text-center">
+            <button data-behaviour="deleteInvoiceLine" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+{% endmacro %}
+
+{{ form_start(form) }}
+
+    {{ form_row(form.date) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.location) }}
+
+    <h5>Invoice lines</h5>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Value</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody
+                class="invoiceLines"
+                data-prototype="{{ formMacros.invoiceLineRow(form.invoiceLines.vars.prototype)|e('html_attr') }}"
+        >
+            {% for invoiceLine in form.invoiceLines %}
+                {{ formMacros.invoiceLineRow(invoiceLine) }}
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <button type="button" class="float-right add_item_link btn btn-outline-secondary btn-sm" data-collection-holder-class="invoiceLines"><i class="fas fa-plus"></i></button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <button class="btn btn-success"><i class="fas fa-check"></i></button>
+
+{{ form_end(form) }}
+
+<script>
+    $(document).ready(function() {
+        let $tagsCollectionHolder = $('tbody.invoiceLines');
+        $tagsCollectionHolder.data('index', $tagsCollectionHolder.find('input').length);
+        $('body').on('click', '.add_item_link', function(e) {
+            var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+            addFormToCollection($collectionHolderClass);
+        })
+
+        $('[data-behaviour="deleteInvoiceLine"]').on('click', function(e) {
+            let button = $(this);
+            button.closest("tr").remove();
+        })
+    });
+
+    function addFormToCollection($collectionHolderClass) {
+        let $collectionHolder = $('.' + $collectionHolderClass);
+        let prototype = $collectionHolder.data('prototype');
+        let index = $collectionHolder.data('index');
+        let newForm = prototype;
+        newForm = newForm.replace(/__name__/g, index);
+        $collectionHolder.data('index', index + 1);
+        $collectionHolder.append(newForm)
+    }
+
+</script>

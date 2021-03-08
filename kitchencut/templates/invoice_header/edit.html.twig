@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit InvoiceHeader{% endblock %}
+
+{% block body %}
+    <h1>Edit Invoice</h1>
+
+    {{ include('invoice_header/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('invoice_header/_delete_form.html.twig') }}
+    <a href="{{ path('invoice_header_index') }}" class="btn btn-light"><i class="fas fa-arrow-left"></i></a>
+
+{% endblock %}

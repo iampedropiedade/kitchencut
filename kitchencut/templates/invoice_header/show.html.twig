@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice{% endblock %}
+
+{% block body %}
+    <h1>Invoice #{{ invoice_header.id }} <a href="{{ path('invoice_header_edit', {'id': invoice_header.id}) }}" class="btn btn-light"><i class="fas fa-edit"></i></a></h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>id</th>
+                <td>{{ invoice_header.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ invoice_header.date ? invoice_header.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td><span class="badge badge-info">{{ invoice_header.status }}</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>Invoice lines</h5>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Description</th>
+            <th scope="col">Value</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for invoiceLine in invoice_header.invoiceLines %}
+                <tr>
+                    <td>{{ invoiceLine.description }}</td>
+                    <td>{{ invoiceLine.value|format_currency('EUR') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('invoice_header_index') }}" class="btn btn-light"><i class="fas fa-arrow-left"></i></a>
+
+{% endblock %}

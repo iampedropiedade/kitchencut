@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location index{% endblock %}
+
+{% block body %}
+
+    <h1>Locations</h1>
+
+    {{ form_start(searchForm) }}
+        <div class="input-group mb-3">
+            {{ form_widget(searchForm.query) }}
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+            </div>
+            {% if searchQuery %}
+                <div class="input-group-append">
+                    <a href="{{ path('location_index') }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
+                </div>
+            {% endif %}
+        </div>
+    {{ form_end(searchForm) }}
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col"># invoices</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            <tr>
+                <th scope="row">{{ location.id }}</th>
+                <td>{{ location.name }}</td>
+                <td>{{ location.invoiceHeaders|length }}</td>
+                <td class="text-center">
+                    <a href="{{ path('location_show', {'id': location.id}) }}" class="btn btn-sm btn-light"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('location_edit', {'id': location.id}) }}" class="btn btn-sm btn-light"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('location_new') }}" class="float-right btn btn-outline-secondary"><i class="fas fa-plus"></i></a>
+
+    {{ pagerfanta(pager) }}
+
+
+{% endblock %}

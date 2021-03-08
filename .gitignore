@@ -1,0 +1,16 @@
+
+###> symfony/framework-bundle ###
+kitchencut/.env.local
+kitchencut/.env.local.php
+/.env.*.local
+kitchencut/config/secrets/prod/prod.decrypt.private.php
+kitchencut/public/bundles/
+kitchencut/var/
+kitchencut/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+kitchencut/.phpunit
+kitchencut/.phpunit.result.cache
+kitchencut/phpunit.xml
+###< symfony/phpunit-bridge ###

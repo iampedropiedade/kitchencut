@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location{% endblock %}
+
+{% block body %}
+    <h1>Location #{{ location.id }} <a href="{{ path('location_edit', {'id': location.id}) }}" class="btn btn-light"><i class="fas fa-edit"></i></a></h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ location.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ location.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>Invoices summary by status</h5>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Total value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoiceSummary in invoicesSummary %}
+            <tr>
+                <th>{{ invoiceSummary.status }}</th>
+                <td>{{ invoiceSummary.total|format_currency('EUR') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">No invoices found for this location</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('location_index') }}" class="btn btn-light"><i class="fas fa-arrow-left"></i></a>
+
+{% endblock %}

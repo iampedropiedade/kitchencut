@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New InvoiceHeader{% endblock %}
+
+{% block body %}
+    <h1>Create Invoice</h1>
+
+    {{ include('invoice_header/_form.html.twig') }}
+    <a href="{{ path('invoice_header_index') }}" class="btn btn-light"><i class="fas fa-arrow-left"></i></a>
+
+{% endblock %}
