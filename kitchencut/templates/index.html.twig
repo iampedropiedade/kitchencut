@@ -4,33 +4,25 @@
 
 {% block body %}
     <h1>Home</h1>
-    <p><a class="p-2 text-dark" href="{{ path('invoice_header_index') }}">Invoices</a></p>
-    <p><a class="p-2 text-dark" href="{{ path('location_index') }}">Locations</a></p>
-
     <hr>
     <ol>
         <li>
-            <strong>Create an Application that connects to MySQL</strong><br />
-            <span class="badge badge-success">Done</span>
+            <span class="badge badge-success">Done</span> <strong>Create an Application that connects to MySQL</strong><br />
         </li>
         <li>
-            <strong>Create a routine that receive: Range Date, Status and Location (The fields must be optional to the final user) and return the list of invoices with the following information: Location name, date, status and total invoice value.</strong><br />
-            <span class="badge badge-success">Done</span><br />
+            <span class="badge badge-success">Done</span> <strong>Create a routine that receive: Range Date, Status and Location (The fields must be optional to the final user) and return the list of invoices with the following information: Location name, date, status and total invoice value.</strong><br />
             <a class="btn btn-link" href="{{ path('invoice_header_index') }}">Example</a>
         </li>
         <li>
-            <strong>Create a routine that receive the location id and return the sum of invoice values grouped by status.</strong><br />
-            <span class="badge badge-success">Done</span><br />
-            Click the eye icon on one of the items <a class="btn btn-link" href="{{ path('location_index') }}">listed here</a>.
+            <span class="badge badge-success">Done</span> <strong>Create a routine that receive the location id and return the sum of invoice values grouped by status.</strong><br />
+            <a class="btn btn-link" href="{{ path('location_index') }}">Click the eye icon on one of the items listed here</a>
         </li>
         <li>
-            <strong>Create a simple list page to show the result</strong><br />
-            <span class="badge badge-success">Done</span>
+            <span class="badge badge-success">Done</span> <strong>Create a simple list page to show the result</strong><br />
         </li>
         <li>
-            <strong>Create a MySQL query that return the quantity of Lines by Invoice (It is not necessary link this query to your sourcecode)</strong><br />
-            <span class="badge badge-success">Done</span><br />
-            <a class="btn btn-link" href="{{ path('invoice_header_index') }}">Example</a>.
+            <span class="badge badge-success">Done</span> <strong>Create a MySQL query that return the quantity of Lines by Invoice (It is not necessary link this query to your sourcecode)</strong><br />
+            <a class="btn btn-link" href="{{ path('invoice_header_index') }}">Example</a>
         </li>
     </ol>
 
